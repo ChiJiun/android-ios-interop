@@ -1,0 +1,9 @@
+# Local capability inventories might contain device and ROM details.
+reports/
+*.local.json
+__pycache__/
+.pytest_cache/
+.venv/
+.idea/
+.vscode/
+.DS_Store
