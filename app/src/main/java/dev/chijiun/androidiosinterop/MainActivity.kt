@@ -49,7 +49,7 @@ private fun CapabilityScreen() {
             Text("Android 互通實驗室", style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                "目前僅提供能力盤點。以下功能尚未啟用、也不會要求 Root。",
+                "目前提供能力盤點與 Android 分享入口；AirDrop 等互通功能尚在研究，不需要 Root。",
                 style = MaterialTheme.typography.bodyMedium,
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -58,6 +58,8 @@ private fun CapabilityScreen() {
                     " / Android " + device.androidRelease + " (API " + device.sdkLevel + ")",
                 style = MaterialTheme.typography.bodySmall,
             )
+            Spacer(modifier = Modifier.height(12.dp))
+            SharePanel()
             Spacer(modifier = Modifier.height(16.dp))
             LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 items(capabilities, key = { it.id.name }) { capability ->

@@ -10,7 +10,7 @@
 | `feature-*`（未建立） | 功能實作時才建立，例如檔案分享、AirPlay | 依需求個別審查 |
 | `experimental-root`（未建立） | Root / Kernel 的 **可選、隔離** 實驗，永不自動啟用 | 須另外核准 |
 
-**現階段沒有任何檔案分享、AirDrop、AirPlay、AirPods 或 Root 功能可用。** 不用虛假的「成功啟用」指示誤導使用者。
+**目前只有 Android 系統分享面板入口（使用者自行選擇 LocalSend 等 App），沒有內建的 LAN 傳輸、AirDrop、AirPlay、AirPods 或 Root 功能。** 功能登錄表繼續顯示未驗證的互通功能為研究中，避免虛假的成功狀態。詳細限制見 [LocalSend 整合](local-share-fallback.md)。
 
 ## 版本與環境
 
@@ -39,7 +39,7 @@ adb shell am start -n dev.chijiun.androidiosinterop/.MainActivity
 
 - [ ] App 可在主力 POCO 及 narzo（型號確認後）啟動、不崩潰。
 - [ ] 顯示基本機型與 Android 版本；不顯示 IMEI、serial、帳號或裝置唯一 ID。
-- [ ] 所有尚未開發的功能都顯示「研究中」，按不到不存在的功能。
+- [ ] 未實作的功能都顯示「研究中」，可以使用分享面板選擇文字或檔案，接收端仍由第三方 App 控制。
 - [ ] 不要求 Root、Accessibility、Internet 或檔案存取權限。
 - [ ] 繁體中文介面正確顯示，系統英語時名稱仍可辨識。
 - [ ] 停止/移除 App 後系統原有功能不變。
