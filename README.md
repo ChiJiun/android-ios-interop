@@ -18,6 +18,18 @@
 4. **Safe by default**：非破壞性偵測優先；刷機、解鎖或改 SELinux 需單獨評估並保留回復路徑。
 5. **Open-source compliance**：先查清上游授權；不分發 Google/Apple 專有 APK、二進位、私密憑證與使用者資料。
 
+## MediaTek Wi-Fi / AWDL 研究（Issue #5）
+
+先閱讀 [POCO X6 Pro AWDL 與 Kernel Source 可行性報告](docs/awdl-mediatek-feasibility.md)。
+若已取得對應版號的 Kernel Source，可用只讀工具檢查 `soc7_0` 原始碼與 Makefile 項目：
+
+```bash
+python3 tools/duchamp_wifi_source_audit.py /path/to/gen4-mt79xx
+python3 -m unittest discover -s tests -v
+```
+
+**即使 Source 齊全，也不能據此宣稱已支援 AirDrop。** 尚未操作實機 RF、Kernel Module、Root 或刷機。
+
 ## 開發方向（詳見 GitHub Issues）
 
 - Quick Share / AirDrop 的官方相容性研究與 AWDL 硬體可行性。
@@ -39,7 +51,7 @@
 - https://github.com/BlueBubblesApp/bluebubbles-app — Mac 橋接的 iMessage 客戶端。
 - https://github.com/KDE/kdeconnect-android 與 https://github.com/Genymobile/scrcpy — 跨裝置操作。
 
-**目前此專案為需求與研究階段，尚未完成部署或實機驗證。**
+**已加入 Kernel Wi-Fi Source 靜態盤點工具；尚未完成實機 RF/Android Kernel/AirDrop 測試。**
 
 ## License
 

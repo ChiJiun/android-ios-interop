@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+reports/
+*.local.json
+.venv/
+.DS_Store
+# CI workflow remains a local template until GitHub workflow scope is granted.
+.github/workflows/
