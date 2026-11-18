@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android 互通實驗室</string>
+    <string name="app_description">功能能力盤點；不需要 Root 或系統修改</string>
+</resources>

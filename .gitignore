@@ -1,0 +1,23 @@
+# Temporary: workflow upload is blocked by current GitHub OAuth workflow scope.
+# CI template is tracked under ci/ until publishing with authorized credentials.
+.github/workflows/
+
+# Android / Gradle
+.gradle/
+**/build/
+local.properties
+*.iml
+.idea/
+.cxx/
+.externalNativeBuild/
+captures/
+*.apk
+*.aab
+
+# Local capability inventories must never be checked in
+reports/
+*.local.json
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
