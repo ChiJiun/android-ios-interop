@@ -18,6 +18,17 @@
 4. **Safe by default**：非破壞性偵測優先；刷機、解鎖或改 SELinux 需單獨評估並保留回復路徑。
 5. **Open-source compliance**：先查清上游授權；不分發 Google/Apple 專有 APK、二進位、私密憑證與使用者資料。
 
+## Quick Share / AirDrop 研究（Issue #4）
+
+針對 POCO X6 Pro 的官方互通能力先提供 [版本與測試矩陣](docs/quick-share-airdrop-compatibility.md)，及不需要 Root 的套件存在性檢查：
+
+```bash
+python3 tools/quick_share_audit.py --adb adb --output reports/poco-quickshare.json
+python3 -m unittest discover -s tests -v
+```
+
+**套件存在不代表 AirDrop 已能連線**；對 iPhone 的原生雙向傳檔尚待實機驗證。
+
 ## 開發方向（詳見 GitHub Issues）
 
 - Quick Share / AirDrop 的官方相容性研究與 AWDL 硬體可行性。
@@ -39,7 +50,7 @@
 - https://github.com/BlueBubblesApp/bluebubbles-app — Mac 橋接的 iMessage 客戶端。
 - https://github.com/KDE/kdeconnect-android 與 https://github.com/Genymobile/scrcpy — 跨裝置操作。
 
-**目前此專案為需求與研究階段，尚未完成部署或實機驗證。**
+**目前已新增 Quick Share 研究用只讀診斷工具；尚未完成 Apple 裝置的雙向實機傳輸驗證。**
 
 ## License
 
