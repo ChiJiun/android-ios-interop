@@ -27,6 +27,17 @@
 - Apple 帳號、iMessage、iCloud 功能邊界研究（不承諾原生 iOS App Store 相容）。
 - Android AI Agent、ADB / scrcpy 開發與系統級可行性。
 
+## 裝置能力盤點（Issue #2）
+
+在筆電安裝 Android SDK Platform Tools、手機授權 USB 偵錯後，使用 **Python 3.9+** 進行只讀能力盤點：
+
+```bash
+python3 tools/device_probe.py --adb adb --output reports/poco-x6-pro.json
+python3 -m unittest discover -s tests -v
+```
+
+詳見 [Windows / WSL2 ADB 與安全回復清單](docs/adb-setup-and-recovery.md)、[POCO X6 Pro](docs/devices/poco-x6-pro.md)、[narzo 50](docs/devices/narzo-50.md)。這些工具不會 Root、刷機或修改手機設定；目前尚未連接真機，因此硬體能力與 Bootloader 狀態仍未實際驗證。
+
 ## 優先參考的上游
 
 - https://github.com/thelok1s/mosey-extended — 研究性實驗；虛擬 Wi-Fi phy 不等於真實無線傳輸。
@@ -39,8 +50,8 @@
 - https://github.com/BlueBubblesApp/bluebubbles-app — Mac 橋接的 iMessage 客戶端。
 - https://github.com/KDE/kdeconnect-android 與 https://github.com/Genymobile/scrcpy — 跨裝置操作。
 
-**目前此專案為需求與研究階段，尚未完成部署或實機驗證。**
+**目前尚未完成 Android APK 開發、部署或實機驗證；裝置盤點工具已加入原始碼，可在取得授權的 Android 裝置上執行。**
 
 ## License
 
-程式碼尚未加入，授權選型待完成相容性盤點；未經確認不得直接複製上游 GPL、Apache 或其他授權的程式碼。
+新程式碼的專案授權選型待完成相容性盤點；未經確認不得直接複製上游 GPL、Apache 或其他授權的程式碼。
