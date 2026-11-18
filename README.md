@@ -20,13 +20,14 @@
 
 ## Android App 建置（Issue #3）
 
-此 Repository 已含 Android App 初始架構與功能能力清單。**目前 App 只顯示裝置與功能研究狀態，不提供尚未實作的 AirDrop 等功能。**
+此 Repository 已含 Android App 初始架構與功能能力清單，並新增 **實驗性的 Android 系統 Sharesheet 分享入口**：使用者可以選擇文字或檔案，手動交給 LocalSend 等第三方 App。**真正 AirDrop、LAN 傳輸協定、AirPlay 等仍未實作。**
 
 - 需求：JDK 17、Android SDK API 36、Gradle 8.13，或 Android Studio 相容環境。
 - 建置：`gradle :core:capabilities:test :app:lintDebug :app:assembleDebug`
 - APK：`app/build/outputs/apk/debug/app-debug.apk`，無簽章密鑰且不依賴 Root。
 - GitHub Actions：規劃執行 Lint／Unit Tests／Debug APK 組裝；範本在 `ci/android-ci.yml.example`。目前帳號權杖缺少 `workflow` scope，**尚未啟用 CI**。
 - 完整指南：[Android 開發、測試與發行](docs/android-development.md)。
+- 無 Root 分享替代方案與驗收：[LocalSend 整合說明](docs/local-share-fallback.md)。
 
 ## 開發方向（詳見 GitHub Issues）
 
