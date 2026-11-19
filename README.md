@@ -18,6 +18,16 @@
 4. **Safe by default**：非破壞性偵測優先；刷機、解鎖或改 SELinux 需單獨評估並保留回復路徑。
 5. **Open-source compliance**：先查清上游授權；不分發 Google/Apple 專有 APK、二進位、私密憑證與使用者資料。
 
+## Android App 建置（Issue #3）
+
+此 Repository 已含 Android App 初始架構與功能能力清單。**目前 App 只顯示裝置與功能研究狀態，不提供尚未實作的 AirDrop 等功能。**
+
+- 需求：JDK 17、Android SDK API 36、Gradle 8.13，或 Android Studio 相容環境。
+- 建置：`gradle :core:capabilities:test :app:lintDebug :app:assembleDebug`
+- APK：`app/build/outputs/apk/debug/app-debug.apk`，無簽章密鑰且不依賴 Root。
+- GitHub Actions：規劃執行 Lint／Unit Tests／Debug APK 組裝；範本在 `ci/android-ci.yml.example`。目前帳號權杖缺少 `workflow` scope，**尚未啟用 CI**。
+- 完整指南：[Android 開發、測試與發行](docs/android-development.md)。
+
 ## 開發方向（詳見 GitHub Issues）
 
 - Quick Share / AirDrop 的官方相容性研究與 AWDL 硬體可行性。
@@ -39,8 +49,8 @@
 - https://github.com/BlueBubblesApp/bluebubbles-app — Mac 橋接的 iMessage 客戶端。
 - https://github.com/KDE/kdeconnect-android 與 https://github.com/Genymobile/scrcpy — 跨裝置操作。
 
-**目前此專案為需求與研究階段，尚未完成部署或實機驗證。**
+**Android 基礎骨架已開始實作；由於 VM 沒有 Java / Android SDK，且 GitHub workflow scope 不足，目前未通過 Android 編譯或 CI 驗證；互通功能尚未完成。**
 
 ## License
 
-程式碼尚未加入，授權選型待完成相容性盤點；未經確認不得直接複製上游 GPL、Apache 或其他授權的程式碼。
+尚未引入上游程式碼；本專案自有程式碼授權選型待完成相容性盤點，未經確認不得複製上游 GPL、Apache 或其他授權的程式碼。
