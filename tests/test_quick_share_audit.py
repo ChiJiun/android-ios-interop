@@ -51,6 +51,12 @@ class AuditTests(unittest.TestCase):
         report = audit_module.audit("adb", "B", runner)
         self.assertNotIn('"B"', str(report))
 
+    def test_unexpected_identifiers_are_redacted(self):
+        self.assertEqual(audit_module.sanitize_property("alice@example.com"), "[REDACTED]")
+        self.assertEqual(audit_module.sanitize_property("aa:bb:cc:dd:ee:ff"), "[REDACTED]")
+        self.assertEqual(audit_module.sanitize_property("a\nb"), "unknown")
+        self.assertEqual(audit_module.sanitize_property("duchamp"), "duchamp")
+
     def test_error_output_does_not_expose_serial(self):
         def run(args, **kwargs):
             return subprocess.CompletedProcess(args, 1, "", "user serial SECRET")

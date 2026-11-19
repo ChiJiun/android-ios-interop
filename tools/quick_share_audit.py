@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,14 @@ PUBLIC_PROPS = {
     "hyperos": "ro.mi.os.version.name",
 }
 Run = Callable[..., subprocess.CompletedProcess[str]]
+PRIVATE_VALUE = re.compile(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|(?i:(?:[0-9a-f]{2}:){5}[0-9a-f]{2})")
+
+
+def sanitize_property(value: str) -> str:
+    """Drop unexpected multiline and contact/network identifiers from OEM properties."""
+    if not value or "\n" in value or "\r" in value:
+        return "unknown"
+    return PRIVATE_VALUE.sub("[REDACTED]", value.strip())[:160] or "unknown"
 
 
 class AuditError(Exception):
@@ -68,7 +77,7 @@ def audit(adb: str, serial: str | None, run: Run = subprocess.run) -> dict:
     for label, prop in PUBLIC_PROPS.items():
         try:
             val = adb_call(adb, [*prefix, "getprop", prop], run)
-            build[label] = val[:160] if val and "\n" not in val else "unknown"
+            build[label] = sanitize_property(val)
         except AuditError:
             build[label] = "unknown"
     present: dict[str, str] = {}
