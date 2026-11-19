@@ -68,6 +68,7 @@ class CapabilityProbeTests(unittest.TestCase):
     def test_redact_sensitive_strings(self):
         self.assertEqual(probe.redact("foo@example.org"), "[REDACTED]")
         self.assertEqual(probe.redact("00:11:22:33:44:55"), "[REDACTED]")
+        self.assertEqual(probe.redact("model\nunexpected"), "model unexpected")
 
     def test_failure_messages_do_not_echo_stderr(self):
         def runner(args, **kwargs):

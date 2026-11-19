@@ -59,7 +59,7 @@ class ProbeError(RuntimeError):
 
 
 def redact(value: str) -> str:
-    value = value.strip().replace("\r", "")
+    value = value.strip().replace("\r", " ").replace("\n", " ")
     for pattern in PRIVATE_PATTERNS:
         value = pattern.sub("[REDACTED]", value)
     return value[:MAX_FIELD_LENGTH]
