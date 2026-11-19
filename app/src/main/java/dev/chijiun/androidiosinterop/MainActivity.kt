@@ -63,7 +63,7 @@ private fun CapabilityScreen() {
                 style = MaterialTheme.typography.bodySmall,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            LazyColumn(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 item { Text("裝置公開能力（不代表 Apple 協定已驗證）", style = MaterialTheme.typography.titleMedium) }
                 items(observations, key = { "hardware_" + it.key }) { observation ->
                     val status = when (observation.supported) { true -> "有硬體宣告"; false -> "未宣告"; null -> "未知" }
