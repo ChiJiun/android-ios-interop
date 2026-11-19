@@ -21,11 +21,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import dev.chijiun.androidiosinterop.core.Capability
 import dev.chijiun.androidiosinterop.core.CapabilityRegistry
 import dev.chijiun.androidiosinterop.core.SupportLevel
 import dev.chijiun.androidiosinterop.device.DeviceInfo
+import dev.chijiun.androidiosinterop.device.RuntimeCapabilities
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,8 @@ class MainActivity : ComponentActivity() {
 private fun CapabilityScreen() {
     val device = remember { DeviceInfo.current() }
     val capabilities = remember { CapabilityRegistry.all() }
+    val context = LocalContext.current
+    val observations = remember(context) { RuntimeCapabilities.inspect(context) }
     Scaffold { insets ->
         Column(modifier = Modifier.fillMaxSize().padding(insets).padding(16.dp)) {
             Text("Android 互通實驗室", style = MaterialTheme.typography.headlineSmall)
@@ -61,7 +65,13 @@ private fun CapabilityScreen() {
             Spacer(modifier = Modifier.height(12.dp))
             SharePanel()
             Spacer(modifier = Modifier.height(16.dp))
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            LazyColumn(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                item { Text("裝置公開能力（不代表 Apple 協定已驗證）", style = MaterialTheme.typography.titleMedium) }
+                items(observations, key = { "hardware_" + it.key }) { observation ->
+                    val status = when (observation.supported) { true -> "有硬體宣告"; false -> "未宣告"; null -> "未知" }
+                    Text(observation.key + ": " + status + " — " + observation.evidence, style = MaterialTheme.typography.bodySmall)
+                }
+                item { Text("跨平台功能狀態", style = MaterialTheme.typography.titleMedium) }
                 items(capabilities, key = { it.id.name }) { capability ->
                     CapabilityCard(capability)
                 }
