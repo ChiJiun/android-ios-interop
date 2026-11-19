@@ -33,6 +33,20 @@ class DriverSourceAuditTests(unittest.TestCase):
             self.assertFalse(report["rf_tx_rx_verified"])
             self.assertFalse(report["awdl_interoperability_verified"])
 
+    def test_comment_only_makefile_is_not_wiring(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            chip = root / "chips" / "soc7_0"
+            chip.mkdir(parents=True)
+            (chip / "soc7_0.c").write_text("/* fixture */")
+            headers = root / "include" / "chips" / "coda" / "soc7_0"
+            headers.mkdir(parents=True)
+            (headers / "header.h").write_text("/* fixture */")
+            (root / "Makefile").write_text("# SOC7_0 is not wired yet\n")
+            report = wifi_audit.analyze(root)
+            self.assertFalse(report["checks"]["makefile_soc7_0_wiring"])
+            self.assertEqual(report["source_completeness"], "incomplete")
+
     def test_empty_chip_directory_is_not_complete(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

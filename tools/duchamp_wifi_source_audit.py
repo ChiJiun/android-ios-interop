@@ -26,7 +26,9 @@ def analyze(driver_tree: Path) -> dict:
         makefile_text = makefile.read_text(encoding="utf-8", errors="replace") if makefile_present else ""
     except OSError:
         makefile_text = ""
-    makefile_wired = "SOC7_0" in makefile_text or "soc7_0" in makefile_text
+    # A commented-out mention is not evidence of build-system wiring.
+    active_makefile = "\n".join(line.split("#", 1)[0] for line in makefile_text.splitlines())
+    makefile_wired = "SOC7_0" in active_makefile or "soc7_0" in active_makefile
 
     complete = bool(chip_code and headers and makefile_wired)
     missing = [
