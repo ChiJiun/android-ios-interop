@@ -15,6 +15,13 @@ class SharePayloadPolicyTest {
         assertTrue(SharePayloadPolicy.canShareText("繁體中文資料測試"))
     }
 
+    @Test fun fileCountMustBeBounded() {
+        assertFalse(SharePayloadPolicy.canShareFiles(0))
+        assertTrue(SharePayloadPolicy.canShareFiles(1))
+        assertTrue(SharePayloadPolicy.canShareFiles(SharePayloadPolicy.MAX_FILE_COUNT))
+        assertFalse(SharePayloadPolicy.canShareFiles(SharePayloadPolicy.MAX_FILE_COUNT + 1))
+    }
+
     @Test fun oversizedTextIsBlocked() {
         assertTrue(SharePayloadPolicy.canShareText("a".repeat(SharePayloadPolicy.MAX_TEXT_LENGTH)))
         assertFalse(SharePayloadPolicy.canShareText("a".repeat(SharePayloadPolicy.MAX_TEXT_LENGTH + 1)))

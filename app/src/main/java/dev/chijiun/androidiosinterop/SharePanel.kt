@@ -47,7 +47,11 @@ fun SharePanel() {
     val picker = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenMultipleDocuments()
     ) { selected: List<Uri> ->
-        if (selected.isNotEmpty()) {
+        if (selected.isEmpty()) {
+            // The user cancelled the system picker; no transfer is attempted.
+        } else if (!SharePayloadPolicy.canShareFiles(selected.size)) {
+            Toast.makeText(context, "每次最多分享 50 個檔案", Toast.LENGTH_LONG).show()
+        } else {
             val clipboard = ClipData.newUri(context.contentResolver, "選擇的檔案", selected.first())
             selected.drop(1).forEach { clipboard.addItem(ClipData.Item(it)) }
             val share = Intent(Intent.ACTION_SEND_MULTIPLE).apply {
